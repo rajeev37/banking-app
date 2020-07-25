@@ -1,22 +1,20 @@
 import React from "react";
 import axios from 'axios';
-class Home extends React.Component {
+import { inject, observer } from "mobx-react";
+const Home = inject("stores")(observer(class Home extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             customers: []
         }
     };
-    componentDidMount() {
-        axios.get('http://localhost:5000/customer')
-          .then((response) => {
-            console.log("***res", response.data);
-            this.setState({
-                customers: response.data
-            })
-          });
-          
-      }
+
+    async componentDidMount() {
+        // TODO.. api response should come from axios store.
+        const response = await axios.get(`http://localhost:5000/customer`);
+        const customers = await response.data;
+        this.setState({ customers: customers });
+    }
     render() {
         return (
             <div>
@@ -30,5 +28,5 @@ class Home extends React.Component {
             </div>
         )
     }
-}
+}));
 export default Home;
