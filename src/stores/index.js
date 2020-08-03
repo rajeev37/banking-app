@@ -1,7 +1,7 @@
-import HomePageStore from "./HomePageStore/HomePageStore";
+import AppStore from "./AppStore/AppStore";
 
 const stores = {
-    HomePageStore,
+    AppStore,
 };
 
 export default stores;

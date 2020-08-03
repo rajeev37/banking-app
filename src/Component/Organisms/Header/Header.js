@@ -1,17 +1,42 @@
 import React from "react";
-import { Navbar, Nav, FormControl, Button, Form } from 'react-bootstrap'
+import { Navbar, Nav} from 'react-bootstrap'
+import { history } from '../../../util';
 class Header extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            currentUser: "",
+            isAdmin: false
+        };
+    }
+    logout = () => {
+        this.setState({currentUser: "abc"});
+        history.push('/login');
+    }
     render() {
+        const { currentUser, isAdmin } = this.state;
+        console.log("*******", this.state);
         return (
             <Navbar bg="dark" expand="lg" variant="dark">
                 <Navbar.Brand href="/">ABC Bank</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="mr-auto">
-                        <Nav.Link href="/">Home</Nav.Link>
-                        <Nav.Link href="/about">About</Nav.Link>
-                    </Nav>
-                </Navbar.Collapse>
+                {!currentUser &&
+                    <Navbar.Collapse id="basic-navbar-nav">
+                        <Nav className="mr-auto">
+                            <Nav.Link href="/login">Login</Nav.Link>
+                        </Nav>
+                    </Navbar.Collapse>
+                }
+                {currentUser &&
+                    <Navbar.Collapse id="basic-navbar-nav">
+                        <Nav className="mr-auto">
+                            {isAdmin && <Nav.Link href="/account">Account</Nav.Link>}
+                            {!isAdmin && <Nav.Link href="/account-summary">Account Detail</Nav.Link>}
+                            <a onClick={this.logout} className="nav-item nav-link">Logout</a>
+                        </Nav>
+                    </Navbar.Collapse>
+                }
             </Navbar>
         )
     }
