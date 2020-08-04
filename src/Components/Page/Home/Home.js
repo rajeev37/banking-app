@@ -2,19 +2,18 @@ import React from "react";
 import axios from 'axios';
 import { inject, observer } from "mobx-react";
 import Table from 'react-bootstrap/Table'
-const Home = inject("stores")(class Home extends React.Component {
+@inject("rootStore")
+@observer
+class Home extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             customers: []
         }
     };
-
     async componentDidMount() {
-        // TODO.. api response should come from axios store.
         const response = await axios.get(`http://localhost:5000/customer`);
         const customers = await response.data;
-        console.log("*8", this.props.stores.AppStore.customersList)
         this.setState({ customers: customers });
     }
     render() {
@@ -43,5 +42,5 @@ const Home = inject("stores")(class Home extends React.Component {
             </div>
         )
     }
-});
+}
 export default Home;

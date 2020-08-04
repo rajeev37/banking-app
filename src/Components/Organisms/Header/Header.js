@@ -1,6 +1,5 @@
 import React from "react";
 import { Navbar, Nav} from 'react-bootstrap'
-import { history } from '../../../util';
 class Header extends React.Component {
     constructor(props) {
         super(props);
@@ -12,7 +11,7 @@ class Header extends React.Component {
     }
     logout = () => {
         this.setState({currentUser: "abc"});
-        history.push('/login');
+        window.location.href = "/login";
     }
     render() {
         const { currentUser, isAdmin } = this.state;

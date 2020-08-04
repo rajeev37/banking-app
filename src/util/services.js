@@ -9,4 +9,14 @@ export async function customersGetApi() {
         console.log(error);
       }
 }
+
+export async function userLoginApi(userData) {
+  try {
+      const response = await axios.post(`http://localhost:5000/customer/login`, userData);
+      return await response.data;
+    } catch (error) {
+      return await error;
+      console.log(error);
+    }
+}
 export default { customersGetApi };
