@@ -6,9 +6,17 @@ export default class AppStore {
     this.rootStore = rootStore;
   }
   
-  @observable authUser = {isLogin: false, role: "anonymous"};
+  @observable authUser =  JSON.parse(localStorage.getItem('role')) || {role: "anonymous", isLogin: false};
   @action setUserAuth(user) {
-    this.authUser = user;
+    console.log("user", user);
+    if(user) {
+      localStorage.setItem('role', JSON.stringify(user));
+      this.authUser = JSON.parse(localStorage.getItem('role'));
+    }
+  }
+  @action logout() {
+    localStorage.removeItem('role');
+    this.authUser = {role: "anonymous", isLogin: false}
   }
 
 }

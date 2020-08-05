@@ -2,6 +2,7 @@ import React from "react";
 import axios from 'axios';
 import { Form, Button} from 'react-bootstrap';
 import { inject, observer } from "mobx-react";
+import { toast } from 'react-toastify';
 @inject("rootStore")
 @observer
 class Login extends React.Component {
@@ -19,17 +20,21 @@ class Login extends React.Component {
         user[name] = value;
         this.setState({user})
     };
-    async handleClick(e) {
+
+    async Login(e) {
         e.preventDefault();
         const { username, password } = this.state.user;
         const response = await axios.post(`http://localhost:5000/customer/login`, {username: username, password: password});
         const data = await response.data;
         this.props.rootStore.appStore.setUserAuth(data);
-        if(data.role === "admin") {
+        if(data && data.role === "admin") {
+            toast("Login Successfully.");
             this.props.history.push("/account");
-        } else if(data.role === "customer") {
+        } else if(data && data.role === "user") {
+            toast("Login Successfully.");
             this.props.history.push("/account-summary");
         } else {
+            toast("Invalid Username or Password");
             
         }
         
@@ -62,7 +67,7 @@ class Login extends React.Component {
                     <Button
                         variant="primary"
                         type="submit"
-                        onClick={(e) => this.handleClick(e)}
+                        onClick={(e) => this.Login(e)}
                         >
                         Submit
                     </Button>

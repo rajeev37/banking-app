@@ -5,6 +5,7 @@ import {
   Route
 } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { ToastContainer } from 'react-toastify';
 import { PrivateRoute } from '../routes/PrivateRoute';
 import { Role} from '../util';
 
@@ -24,10 +25,10 @@ class App extends Component {
     };
     render() {
         const { authUser } = this.props.rootStore && this.props.rootStore.appStore;
-
         return (
             <Router>
                 <div className="container">
+                    <ToastContainer />
                     <Header />
                     <br/>
                     <Switch>
