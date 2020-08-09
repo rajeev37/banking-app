@@ -1,5 +1,5 @@
 import React from "react";
-import { Navbar, Nav} from 'react-bootstrap';
+import { Navbar, Nav, NavDropdown} from 'react-bootstrap';
 import { inject, observer } from "mobx-react";
 import { toast } from 'react-toastify';
 @inject("rootStore")
@@ -29,7 +29,11 @@ class Header extends React.Component {
                 {authUser.isLogin &&
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="mr-auto">
-                            {authUser.role ==="admin" && <Nav.Link href="/account">Account</Nav.Link>}
+                            {authUser.role ==="admin" && <NavDropdown title="Account" id="basic-nav-dropdown">
+                                <NavDropdown.Item href="/open-account">Open Account</NavDropdown.Item>
+                                <NavDropdown.Item href="/update-account">Update Account Details</NavDropdown.Item>
+                                <NavDropdown.Item href="/transaction-details">Account Transaction Details</NavDropdown.Item>
+                            </NavDropdown>}
                             {authUser.role ==="user" && <Nav.Link href="/account-summary">Account Detail</Nav.Link>}
                             <a onClick={this.logout} className="nav-item nav-link">Logout</a>
                         </Nav>

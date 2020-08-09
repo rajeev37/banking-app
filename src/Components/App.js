@@ -11,7 +11,9 @@ import { Role} from '../util';
 
 import Home from "./Page/Home/Home";
 import Login from "./Page/Login/Login";
-import Account from "./Page/Account/Account";
+import AccountOpen from "./Page/AccountOpen/AccountOpen";
+import AccountUpdate from "./Page/AccountUpdate/AccountUpdate";
+import TransactionDetails from "./Page/TransactionDetails/TransactionDetails";
 import AccountSummary from "./Page/AccountSummary/AccountSummary";
 import Header from "./Organisms/Header/Header";
 import { inject, observer } from "mobx-react";
@@ -33,7 +35,9 @@ class App extends Component {
                     <br/>
                     <Switch>
                         <Route exact path="/" component={Home} />
-                        <PrivateRoute path="/account" roles={[Role.Admin]} authUser={authUser} component={Account} />
+                        <PrivateRoute path="/open-account" roles={[Role.Admin]} authUser={authUser} component={AccountOpen} />
+                        <PrivateRoute path="/update-account" roles={[Role.Admin]} authUser={authUser} component={AccountUpdate} />
+                        <PrivateRoute path="/transaction-details" roles={[Role.Admin]} authUser={authUser} component={TransactionDetails} />
                         <PrivateRoute path="/account-summary" roles={[Role.User]} authUser={authUser} component={AccountSummary} />
                         <Route path="/login" component={Login} />
                     </Switch>
