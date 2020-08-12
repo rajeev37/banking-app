@@ -29,7 +29,7 @@ class Login extends React.Component {
         this.props.rootStore.appStore.setUserAuth(data);
         if(data && data.role === "admin") {
             toast("Login Successfully.");
-            this.props.history.push("/account");
+            this.props.history.push("/open-account");
         } else if(data && data.role === "user") {
             toast("Login Successfully.");
             this.props.history.push("/account-summary");
